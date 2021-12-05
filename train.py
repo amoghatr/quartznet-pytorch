@@ -195,7 +195,9 @@ def train(config):
             val_stats['cer'].append(cer)
         for k, v in val_stats.items():
             val_stats[k] = np.mean(v)
-        val_stats['val_samples'] = wandb.Table(columns=['gt_text', 'pred_text'], data=zip(target_strings, decoded_output))
+        r1=zip(target_strings, decoded_output)
+        z1=[list(a) for a in r1]
+        val_stats['val_samples'] = wandb.Table(columns=['gt_text', 'pred_text'], data=z1)
         wandb.log(val_stats, step=step)
 
         # save model, TODO: save optimizer:
