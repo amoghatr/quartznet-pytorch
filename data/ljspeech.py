@@ -15,7 +15,7 @@ class LJSpeechDataset(torchaudio.datasets.LJSPEECH):
         return self.transforms({'audio' : audio, 'text': norm_text, 'sample_rate': sample_rate})
 
     def get_text(self, n):
-        line = self._walker[n]
+        line = self._flist[n]
         fileid, transcript, normalized_transcript = line
         return self.transforms({'text' : normalized_transcript})['text']
 
