@@ -164,13 +164,15 @@ def train(config):
                 wer = np.mean([decoder.wer(true, pred) for true, pred in zip(target_strings, decoded_output)])
                 cer = np.mean([decoder.cer(true, pred) for true, pred in zip(target_strings, decoded_output)])
                 step = epoch_idx * len(train_dataloader) * train_dataloader.batch_size + batch_idx * train_dataloader.batch_size
+                result=zip(target_strings,decoded_output)
+                z=[list(a) for a in result]
                 wandb.log({
                     "train_loss": loss.item(),
                     "train_wer": wer,
                     "train_cer": cer,
                     "train_samples": wandb.Table(
                         columns=['gt_text', 'pred_text'],
-                        data=zip(target_strings, decoded_output)
+                        data=z
                     )
                 }, step=step)
 
